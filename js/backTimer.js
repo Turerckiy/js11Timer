@@ -77,4 +77,4 @@ new CountdownTimer({
   dateInput: document.querySelector("dateInput"),
 });
 
-console.log(1000 * 60 * 60 * 24);
+// console.log(1000 * 60 * 60 * 24);
