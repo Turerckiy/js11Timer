@@ -1,6 +1,6 @@
 class CountdownTimer {
   constructor({ selector, targetDate, dateInput }) {
-    this.targetDate = targetDate;
+    this.targetDate = targetDate.getTime();
     this.selector = document.querySelector(`${selector}`);
     this.days = document.querySelector('[ data-value="days"]');
     this.hours = document.querySelector('[ data-value="hours"]');
@@ -12,10 +12,9 @@ class CountdownTimer {
   }
 
   firstTimer() {
-    const timeDelta = this.targetDate.getTime() - Date.now();
-    if (Date.now() >= this.targetDate.getTime()) {
+    const timeDelta = this.targetDate - Date.now();
+    if (Date.now() >= this.targetDate) {
       this.calculation(0);
-
       return;
     }
     this.calculation(timeDelta);
@@ -25,10 +24,9 @@ class CountdownTimer {
     // console.log(this.input);
     this.input = addEventListener("input", add);
     function add() {
-      console.log("ww");
     }
     this.timerId = setInterval(() => {
-      if (Date.now() >= this.targetDate.getTime()) {
+      if (Date.now() >= this.targetDate) {
         clearInterval(this.timerId);
         return;
       }
@@ -41,7 +39,7 @@ class CountdownTimer {
       Math.floor(timeDelta / (time))
     );
     this.hours.textContent = this.pad(
-      Math.floor((timeDelta % (time)) / (1000 * 60 * 60))
+      Math.floor((timeDelta % (time)) / (time/24))
     );
     this.mins.textContent = this.pad(
       Math.floor((timeDelta % (time/24)) / (1000 * 60))
@@ -73,7 +71,7 @@ class CountdownTimer {
 }
 new CountdownTimer({
   selector: "#timer-1",
-  targetDate: new Date("Jul 17,30049"),
+  targetDate: new Date("Jul 17, 3020"),
   dateInput: document.querySelector("dateInput"),
 });
 
